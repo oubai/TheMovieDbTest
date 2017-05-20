@@ -1,33 +1,39 @@
 package me.oabbasi.moviedb.network;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import me.oabbasi.moviedb.model.MoviesList;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 
 public class MoviesConnection {
-    private final String API_KEY = "409231100723bd3cc2636039a37d56e0";
 
     private final TheMovieDbApi theMovieDbApi;
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
     public MoviesConnection() {
-        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+        final HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT);
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        final OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder()
+                .addInterceptor(interceptor);
         Retrofit retrofit = new Retrofit.Builder()
+                .client(okHttpClientBuilder.build())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .baseUrl("https://api.themoviedb.org/3/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(TheMovieDbApi.BASE_URL)
                 .build();
 
         theMovieDbApi = retrofit.create(TheMovieDbApi.class);
     }
 
     public Observable<MoviesList> getMovies(int page, Date releaseDateStart, Date releaseDateEnd) {
-        return theMovieDbApi.getMovies(API_KEY, page, releaseDateStart, releaseDateEnd);
+        return theMovieDbApi.getMovies(TheMovieDbApi.API_KEY, page, releaseDateStart == null ? null : simpleDateFormat.format(releaseDateStart),
+                releaseDateEnd == null ? null : simpleDateFormat.format(releaseDateEnd));
     }
 }

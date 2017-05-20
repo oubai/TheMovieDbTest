@@ -7,4 +7,7 @@
     <string name="release_date">Release date</string>
     <string name="original_title">Original Title</string>
     <string name="popularity">Popularity</string>
+    <string name="start_date">Start date:</string>
+    <string name="end_date">End date:</string>
+    <string name="clear">clear</string>
 </resources>

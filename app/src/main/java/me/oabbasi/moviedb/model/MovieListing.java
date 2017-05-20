@@ -11,32 +11,32 @@ import lombok.Getter;
 public class MovieListing implements Serializable {
 
     @SerializedName("poster_path")
-    public String posterPath;
+    private String posterPath;
     @SerializedName("adult")
-    public Boolean adult;
+    private Boolean adult;
     @SerializedName("overview")
-    public String overview;
+    private String overview;
     @SerializedName("release_date")
-    public String releaseDate;
+    private String releaseDate;
     @SerializedName("genre_ids")
-    public List<Integer> genreIds = null;
+    private List<Integer> genreIds = null;
     @SerializedName("id")
-    public Integer id;
+    private Integer id;
     @SerializedName("original_title")
-    public String originalTitle;
+    private String originalTitle;
     @SerializedName("original_language")
-    public String originalLanguage;
+    private String originalLanguage;
     @SerializedName("title")
-    public String title;
+    private String title;
     @SerializedName("backdrop_path")
-    public String backdropPath;
+    private String backdropPath;
     @SerializedName("popularity")
-    public Double popularity;
+    private Double popularity;
     @SerializedName("vote_count")
-    public Integer voteCount;
+    private Integer voteCount;
     @SerializedName("video")
-    public Boolean video;
+    private Boolean video;
     @SerializedName("vote_average")
-    public Double voteAverage;
+    private Double voteAverage;
 
 }

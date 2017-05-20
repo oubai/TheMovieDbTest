@@ -11,12 +11,12 @@ import lombok.Getter;
 public class MoviesList implements Serializable{
 
     @SerializedName("page")
-    public Integer page;
+    private Integer page;
     @SerializedName("results")
-    public List<MovieListing> movieListings = null;
+    private List<MovieListing> movieListings = null;
     @SerializedName("total_results")
-    public Integer totalResults;
+    private Integer totalResults;
     @SerializedName("total_pages")
-    public Integer totalPages;
+    private Integer totalPages;
 
 }
